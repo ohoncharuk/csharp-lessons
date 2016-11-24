@@ -111,9 +111,9 @@
 
 <p>Following example shows how to handle array with foreach loop.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">words</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="s">"Hey"</span><span class="p">,</span> <span class="s">"dude"</span><span class="p">,</span> <span class="s">"where"</span><span class="p">,</span> <span class="s">"is"</span><span class="p">,</span> <span class="s">"my"</span><span class="p">,</span> <span class="s">"car"</span><span class="p">,</span> <span class="s">"?"</span><span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">words</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="s">"Hey"</span><span class="p">,</span> <span class="s">"dude"</span><span class="p">,</span> <span class="s">"where"</span><span class="p">,</span> <span class="s">"is"</span><span class="p">,</span> <span class="s">"my"</span><span class="p">,</span> <span class="s">"car"</span><span class="p">,</span> <span class="s">"?"</span><span class="p">};</span>
 <span class="kt">int</span> <span class="n">numberOfWords</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">word</span> <span class="k">in</span> <span class="n">words</span><span class="p">)</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">word</span> <span class="k">in</span> <span class="n">words</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="err">$</span><span class="s">"{word} "</span><span class="p">);</span>
     <span class="n">numberOfWords</span><span class="p">++;</span>
@@ -128,10 +128,10 @@
 
 <p>Let’s try it with foreach first.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
 
-<span class="n">var</span> <span class="n">maxElement</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="m">0</span><span class="p">];</span><span class="c1">//Why we need it?
-</span><span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">currentItem</span> <span class="k">in</span> <span class="n">array</span><span class="p">)</span>
+<span class="kt">var</span> <span class="n">maxElement</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="m">0</span><span class="p">];</span><span class="c1">//Why we need it?
+</span><span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">currentItem</span> <span class="k">in</span> <span class="n">array</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">currentItem</span> <span class="p">&gt;</span> <span class="n">maxElement</span><span class="p">)</span>
     <span class="p">{</span>
@@ -143,13 +143,13 @@
 
 <p>And now I’ll show you how ‘for’ can be better for this in case you need more functionality rather than just find some element.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">99</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">43</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
 
-<span class="n">var</span> <span class="n">maxElement</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="m">0</span><span class="p">];</span><span class="c1">//Why we need it?
-</span><span class="n">var</span> <span class="n">maxElementPosition</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">maxElement</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="m">0</span><span class="p">];</span><span class="c1">//Why we need it?
+</span><span class="kt">var</span> <span class="n">maxElementPosition</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
 <span class="p">{</span>
-    <span class="n">var</span> <span class="n">currentItem</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="kt">var</span> <span class="n">currentItem</span> <span class="p">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">currentItem</span> <span class="p">&gt;</span> <span class="n">maxElement</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">maxElement</span> <span class="p">=</span> <span class="n">currentItem</span><span class="p">;</span>
@@ -170,7 +170,7 @@
 
 <p>in C# 2d array I.e. matrix can be defined as:</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">matrix</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">matrix</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
 <span class="p">{</span>
   <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
   <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
@@ -183,14 +183,14 @@
 
 <p>Let’s review an example how to sum 2d array.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
 <span class="p">{</span>
     <span class="p">{</span><span class="m">1</span><span class="p">,</span> <span class="m">5</span><span class="p">},</span>
     <span class="p">{</span><span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">},</span>
     <span class="p">{</span><span class="m">7</span><span class="p">,</span> <span class="m">3</span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="n">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">array2d</span><span class="p">.</span><span class="nf">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="n">i</span><span class="p">++)</span>
 <span class="p">{</span>
@@ -203,7 +203,7 @@
 
 <p>Now, let’s try to sum <a href="https://en.wikipedia.org/wiki/Main_diagonal">main diagonal</a> elements of 5*5 matrix.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
 <span class="p">{</span>
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">48</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
@@ -212,7 +212,7 @@
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">34</span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="n">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
 <span class="c1">//diagonals sum
 </span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">array2d</span><span class="p">.</span><span class="nf">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="n">i</span><span class="p">++)</span>
@@ -223,7 +223,7 @@
 
 <p>Well, now let’s calculate both diagonals.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array2d</span> <span class="p">=</span> <span class="k">new</span><span class="p">[,]</span>
 <span class="p">{</span>
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">48</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">},</span>
@@ -232,11 +232,11 @@
     <span class="p">{</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">34</span><span class="p">}</span>
 <span class="p">};</span>
 
-<span class="n">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">mainIndex</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">mainIndex</span> <span class="p">&lt;</span> <span class="n">array2d</span><span class="p">.</span><span class="nf">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="n">mainIndex</span><span class="p">++)</span>
 <span class="p">{</span>
-    <span class="n">var</span> <span class="n">secondaryIndex</span> <span class="p">=</span> <span class="n">array2d</span><span class="p">.</span><span class="nf">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">-</span> <span class="m">1</span> <span class="p">-</span> <span class="n">mainIndex</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">secondaryIndex</span> <span class="p">=</span> <span class="n">array2d</span><span class="p">.</span><span class="nf">GetLength</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">-</span> <span class="m">1</span> <span class="p">-</span> <span class="n">mainIndex</span><span class="p">;</span>
 
     <span class="n">sum</span> <span class="p">+=</span> <span class="n">array2d</span><span class="p">[</span><span class="n">mainIndex</span><span class="p">,</span> <span class="n">secondaryIndex</span><span class="p">];</span>
 
@@ -253,7 +253,7 @@
 
 <p>This task can be done with for loop.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">6</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">34</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span> <span class="p">};</span>
 
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Initial array:"</span><span class="p">);</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">","</span><span class="p">,</span> <span class="n">array</span><span class="p">));</span>

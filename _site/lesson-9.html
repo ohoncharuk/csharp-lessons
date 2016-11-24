@@ -112,8 +112,8 @@
 
 <p>DateTimeOffset was added in Framework 3.5 and is functionally similar to DateTime. Its distinguishing feature is that it also stores a UTC offset; this allows more meaningful results when comparing values across different time zones.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">dateTimeNow</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
-<span class="n">var</span> <span class="n">dateTimeOffsetNow</span> <span class="p">=</span> <span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">dateTimeNow</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">dateTimeOffsetNow</span> <span class="p">=</span> <span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
 
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">dateTimeNow</span><span class="p">);</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">dateTimeNow</span><span class="p">.</span><span class="n">Kind</span><span class="p">);</span>
@@ -126,7 +126,7 @@
 <p>TypeSpan just represents a time interval:</p>
 
 <figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">TimeSpan</span> <span class="n">timeSpan</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Today</span><span class="p">.</span><span class="nf">AddDays</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="p">-</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Today</span><span class="p">.</span><span class="nf">AddDays</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">h</span> <span class="p">=</span> <span class="n">timeSpan</span><span class="p">.</span><span class="n">TotalHours</span><span class="p">;</span> <span class="p">//</span> <span class="m">24</span></code></pre></figure>
+<span class="kt">var</span> <span class="n">h</span> <span class="p">=</span> <span class="n">timeSpan</span><span class="p">.</span><span class="n">TotalHours</span><span class="p">;</span> <span class="p">//</span> <span class="m">24</span></code></pre></figure>
 
 <p>DateTime.Now is always unique.
 <img src="/images/lesson9/timespan.png" width="80%" /></p>
@@ -147,7 +147,7 @@
 
 <p>Example on how to gwt some local time in some time zone:</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">bangkokTime</span> <span class="p">=</span> <span class="n">TimeZoneInfo</span><span class="p">.</span><span class="nf">ConvertTime</span><span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">,</span> <span class="n">TimeZoneInfo</span><span class="p">.</span><span class="nf">FindSystemTimeZoneById</span><span class="p">(</span><span class="s">"SE Asia Standard Time"</span><span class="p">));</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">bangkokTime</span> <span class="p">=</span> <span class="n">TimeZoneInfo</span><span class="p">.</span><span class="nf">ConvertTime</span><span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">,</span> <span class="n">TimeZoneInfo</span><span class="p">.</span><span class="nf">FindSystemTimeZoneById</span><span class="p">(</span><span class="s">"SE Asia Standard Time"</span><span class="p">));</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Loca time in Bangkok is: {0}"</span><span class="p">,</span> <span class="n">bangkokTime</span><span class="p">);</span></code></pre></figure>
 
 <h1 id="a-nameequality-comparisonequality-comparisona"><a name="equality-comparison">Equality Comparison</a></h1>
@@ -175,8 +175,8 @@
 
 <p>The double type’s == operator enforces that one NaN can never equal anything else — even another NaN. This is most natural from a mathematical perspective, and it reflects the underlying CPU behavior</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">sb1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">sb2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">sb1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">sb2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">sb1</span> <span class="p">==</span> <span class="n">sb2</span><span class="p">);</span> <span class="c1">// False (referential equality)
 </span><span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">sb1</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="n">sb2</span><span class="p">));</span> <span class="p">//</span> <span class="nf">True</span> <span class="p">(</span><span class="k">value</span> <span class="n">equality</span><span class="p">)</span></code></pre></figure>
 

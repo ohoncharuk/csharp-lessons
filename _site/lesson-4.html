@@ -138,27 +138,27 @@ When you define a class, you define a blueprint for an object.</p>
 
     <span class="k">public</span> <span class="kt">double</span> <span class="nf">Mutliply</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span><span class="p">*</span><span class="n">x2</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span><span class="p">*</span><span class="n">x2</span><span class="p">;</span>
         <span class="nf">AddHistory</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="s">"*"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">public</span> <span class="kt">double</span> <span class="nf">Sum</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span> <span class="p">+</span> <span class="n">x2</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span> <span class="p">+</span> <span class="n">x2</span><span class="p">;</span>
         <span class="nf">AddHistory</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="s">"+"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">public</span> <span class="kt">double</span> <span class="nf">Substract</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span> <span class="p">-</span> <span class="n">x2</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x1</span> <span class="p">-</span> <span class="n">x2</span><span class="p">;</span>
         <span class="nf">AddHistory</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="s">"-"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">public</span> <span class="kt">double</span> <span class="nf">Divide</span><span class="p">(</span><span class="kt">double</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">double</span> <span class="n">x2</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x2</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">?</span> <span class="n">x1</span><span class="p">/</span><span class="n">x2</span> <span class="p">:</span> <span class="m">0</span><span class="p">;</span> <span class="c1">//Preventing infinity value.
+        <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">x2</span> <span class="p">!=</span> <span class="m">0</span> <span class="p">?</span> <span class="n">x1</span><span class="p">/</span><span class="n">x2</span> <span class="p">:</span> <span class="m">0</span><span class="p">;</span> <span class="c1">//Preventing infinity value.
 </span>        <span class="nf">AddHistory</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="s">"/"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
     <span class="p">}</span>
@@ -185,7 +185,7 @@ When you define a class, you define a blueprint for an object.</p>
 
 <figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">Calculator</span> <span class="n">calculator</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Calculator</span><span class="p">(</span><span class="s">"Alex"</span><span class="p">);</span>
 
-<span class="n">var</span> <span class="n">stopCalculation</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="kt">var</span> <span class="n">stopCalculation</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
 <span class="k">do</span>
 <span class="p">{</span>
     <span class="kt">double</span> <span class="n">a</span><span class="p">;</span>
@@ -194,7 +194,7 @@ When you define a class, you define a blueprint for an object.</p>
     <span class="n">calculator</span><span class="p">.</span><span class="nf">InviteToEnterValue</span><span class="p">(</span><span class="k">out</span> <span class="n">a</span><span class="p">);</span>
     <span class="n">calculator</span><span class="p">.</span><span class="nf">InviteToEnterValue</span><span class="p">(</span><span class="k">out</span> <span class="n">b</span><span class="p">);</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Write a command:"</span><span class="p">);</span>
-    <span class="n">var</span> <span class="n">command</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">command</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="nf">ReadLine</span><span class="p">();</span>
 
     <span class="k">switch</span> <span class="p">(</span><span class="n">command</span><span class="p">)</span>
     <span class="p">{</span>

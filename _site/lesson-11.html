@@ -111,26 +111,28 @@
 <h1 id="a-nameoperator-overloadinglinq-language-integrated-querya"><a name="operator-overloading">LINQ (Language-Integrated Query)</a></h1>
 <p>LINQ introduces standard, easily-learned patterns for querying and updating data, and the technology can be extended to support potentially any kind of data store.</p>
 
-<p>All LINQ query operations consist of three distinct actions:
-- Obtain the data source
-- Create the query
-- Execute the query</p>
+<p>All LINQ query operations consist of three distinct actions:</p>
+<ul>
+  <li>Obtain the data source</li>
+  <li>Create the query</li>
+  <li>Execute the query</li>
+</ul>
 
 <p>Examples:</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">numbers</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="m">12</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">numbers</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="m">12</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
 
-<span class="n">var</span> <span class="n">evenNumbers</span> <span class="p">=</span> <span class="n">numbers</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">%</span><span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">evenNumber</span> <span class="k">in</span> <span class="n">evenNumbers</span><span class="p">)</span>
+<span class="kt">var</span> <span class="n">evenNumbers</span> <span class="p">=</span> <span class="n">numbers</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">%</span><span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">evenNumber</span> <span class="k">in</span> <span class="n">evenNumbers</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">evenNumber</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="n">var</span> <span class="n">numbers</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="m">12</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="kt">var</span> <span class="n">numbers</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span><span class="m">12</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">4</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">22</span><span class="p">,</span> <span class="m">65</span><span class="p">,</span> <span class="m">33</span><span class="p">,</span> <span class="m">7</span><span class="p">,</span> <span class="m">9</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">};</span>
 
-<span class="n">var</span> <span class="n">evenNumbers</span> <span class="p">=</span> <span class="n">numbers</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">%</span><span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+<span class="kt">var</span> <span class="n">evenNumbers</span> <span class="p">=</span> <span class="n">numbers</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span> <span class="p">=&gt;</span> <span class="n">x</span><span class="p">%</span><span class="m">2</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
                 <span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span> <span class="err">$</span><span class="s">"Number {x} is even."</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">evenNumber</span> <span class="k">in</span> <span class="n">evenNumbers</span><span class="p">)</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">evenNumber</span> <span class="k">in</span> <span class="n">evenNumbers</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">evenNumber</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
@@ -169,7 +171,7 @@
 </span>        <span class="n">SuperValue</span> <span class="n">value2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SuperValue</span> <span class="p">{</span> <span class="n">Value</span> <span class="p">=</span> <span class="s">"World"</span> <span class="p">};</span>
 
         <span class="n">Swapper</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">swapperOne</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Swapper</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-        <span class="n">var</span> <span class="n">swapperTwo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Swapper</span><span class="p">&lt;</span><span class="n">SuperValue</span><span class="p">&gt;();</span>
+        <span class="kt">var</span> <span class="n">swapperTwo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Swapper</span><span class="p">&lt;</span><span class="n">SuperValue</span><span class="p">&gt;();</span>
 
         <span class="n">swapperOne</span><span class="p">.</span><span class="nf">Swap</span><span class="p">(</span><span class="k">ref</span> <span class="n">x</span><span class="p">,</span> <span class="k">ref</span> <span class="n">y</span><span class="p">);</span>
         <span class="n">swapperTwo</span><span class="p">.</span><span class="nf">Swap</span><span class="p">(</span><span class="k">ref</span> <span class="n">value1</span><span class="p">,</span> <span class="k">ref</span> <span class="n">value2</span><span class="p">);</span>
@@ -202,7 +204,7 @@ By default, a type parameter can be substituted with any type whatsoever. Constr
 
 <p>Followign code demonstrates how it works.</p>
 
-<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">class</span> <span class="nc">Swapper</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">where</span> <span class="n">T</span><span class="p">:</span><span class="k">class</span>
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">class</span> <span class="nc">Swapper</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="k">where</span> <span class="n">T</span><span class="p">:</span><span class="k">class</span>
 <span class="err">{</span>
     <span class="nc">public</span> <span class="k">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="k">ref</span> <span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="k">ref</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span>
     <span class="p">{</span>
@@ -228,7 +230,7 @@ By default, a type parameter can be substituted with any type whatsoever. Constr
 <span class="n">names</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">"Mike"</span><span class="p">);</span>
 <span class="n">names</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">"Alan"</span><span class="p">);</span>
 
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">name</span> <span class="k">in</span> <span class="n">names</span><span class="p">)</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">name</span> <span class="k">in</span> <span class="n">names</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
@@ -243,13 +245,13 @@ By default, a type parameter can be substituted with any type whatsoever. Constr
 
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"All flowers in bouquet."</span><span class="p">);</span>
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">"Total number is {bouquet.Count}"</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">flower</span> <span class="k">in</span> <span class="n">bouquet</span><span class="p">)</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">flower</span> <span class="k">in</span> <span class="n">bouquet</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">"{flower.Key} is {flower.Value}"</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"White flowers are:"</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="n">var</span> <span class="n">flower</span> <span class="k">in</span> <span class="n">bouquet</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">Value</span><span class="p">==</span> <span class="s">"white"</span><span class="p">))</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">flower</span> <span class="k">in</span> <span class="n">bouquet</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">x</span><span class="p">=&gt;</span><span class="n">x</span><span class="p">.</span><span class="n">Value</span><span class="p">==</span> <span class="s">"white"</span><span class="p">))</span>
 <span class="p">{</span>
     <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="err">$</span><span class="s">"{flower.Key}"</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
