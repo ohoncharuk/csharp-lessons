@@ -18,4 +18,4 @@ Facebook: <a href="https://www.facebook.com/honcharuk">honcharuk</a>
 LinkedIn: <a href="https://www.linkedin.com/in/honcharuk">honcharuk</a>
 
 
-![](/images/qr.png)
+![](/learchcsharp/images/qr.png)
