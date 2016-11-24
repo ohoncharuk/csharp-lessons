@@ -1,0 +1,169 @@
+---
+layout: post
+title:  "Lesson 6"
+number: 6
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-6
+excerpt_separator: <!--more-->
+---
+Now, we'll review a simple and rather popular software development pattern Singleton and Serialization.
+<!--more-->
+
+# Agenda #
+* <a href="#singleton">Singleton</a>
+* <a href="#serialization">Serialization</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+
+# <a name="singleton">Singleton</a> #
+Wikipedia: "In software engineering, the singleton pattern is a design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system.". You should use Singleton when you need only one object to be created.
+
+Here is an example on how to create a Singleton class.
+{% highlight csharp %}
+class Singleton
+{
+    private static Singleton _instance;
+
+    public static Singleton Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new Singleton();
+            }
+            return _instance;
+        }
+    }
+
+    //private constructor is neccessary in order to
+    //prevent object cretion outside of a class
+    private Singleton()
+    {
+        //ToDo: initialize class members
+    }
+}
+
+{% endhighlight %}
+
+It can be also implemented using C# 6.0 auto-property feature.
+{% highlight csharp %}
+class Singleton
+{
+    public static Singleton Instance { get; } = new Singleton();
+
+    private Singleton()
+    {
+        //ToDo: initialize class members
+    }
+}
+{% endhighlight %}
+
+# <a name="serialization">Serialization</a> #
+Let's imagine you want to implement a functionality to manage some cell phone or tablet settings.
+It's OK to have just one Settings object for a whole application and access it globally. Sounds as if Singleton is the way to go!
+For sure, Settings object should has a functionality to save and restore its state. Now, on the one hand we are going to implement a Singleton class and name it Settings and on the other hand - provide its state saving.
+Object's state can be saved using Serialization.
+Serialization is the process of translating data structures or object state into a format that can be stored somehow. E.g. some object can be converted into array of bytes and saved into file, datbase, or transmitted via HTTP or network.
+
+There are followings major serialization types:
+
+* Binary serialization - converts data object into set of bytes.
+* XML serialization - converts data object into XML string.
+* JSON serialization - converts data object into JSON string.
+
+Bytes, XML or JSON strings can be saved as you wish.
+
+Well, you have some object saved (serialized), and you want to restore saved data into real C# object. This process called deserialization.
+
+Let's start coding Setting singleton class. Full demo can be found below. Please copy it and debug it by yourself.
+
+{% highlight csharp %}
+//[Serializable] attribute has to be added to support Serialization.
+//We'll learn attributes later. Don't pay close attentioon to it now.
+[Serializable]
+class Settings
+{
+    private static readonly string _settingsFilePath = "c:\\settings.dat";
+    private static Settings _instance;
+
+    public static Settings Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                //restore setting if they were saved previously
+                if (File.Exists(_settingsFilePath))
+                {
+                    FileStream fs = new FileStream(_settingsFilePath, FileMode.Open);
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    _instance = (Settings)formatter.Deserialize(fs);
+                    fs.Close();
+                }
+                else
+                {
+                    //no settings are saved and default values to be set
+                    _instance = new Settings
+                    {
+                        BluetoothEnabled = false,
+                        WiFiEnabled = true,
+                        IsOnMute = false,
+                        VibroEnabled = true,
+                        BrightnessLevel = 70
+                    };
+                }
+            }
+            return _instance;
+        }
+    }
+
+    private Settings()
+    {
+
+    }
+
+    public void SaveSettings()
+    {
+        FileStream fs = new FileStream(_settingsFilePath, FileMode.OpenOrCreate);//Opening file for creation
+        BinaryFormatter formatter = new BinaryFormatter();//BinaryFormatter instance is neccessary to convert object to bytes
+        formatter.Serialize(fs, Instance);//converting bytes to file....
+        fs.Close();//closing file stream to avoid issues with this file further.
+    }
+
+    public int BrightnessLevel { get; set; }
+    public bool BluetoothEnabled { get; set; }
+    public bool WiFiEnabled { get; set; }
+    public bool IsOnMute { get; set; }
+    public bool VibroEnabled { get; set; }
+}
+{% endhighlight %}
+
+This singleton class can be used as following demo shows:
+{% highlight csharp %}
+Settings.Instance.BlutoothEnabled = true;
+Settings.Instance.BrightnessLevel = 90;
+Settings.Instance.SaveSettings();
+{% endhighlight %}
+
+# <a name="references">References</a> #
+
+* [singleton] [singleton]
+* [Singleton implementation] [singleton-implementation]
+* [Serialization] [serialization]
+* [Binary Serialization] [binary-serialization]
+* [XML Serialization] [xml-serialization]
+* [JSON Serialization] [json-serialization]
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/2VsDuostedYgNE" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson6-60856955" title="Lesson6" target="_blank">Lesson6</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+[singleton]: https://en.wikipedia.org/wiki/Singleton_pattern
+[singleton-implementation]:https://msdn.microsoft.com/en-us/library/ff650316.aspx
+[serialization]: https://en.wikipedia.org/wiki/Serialization
+[binary-serialization]: https://msdn.microsoft.com/en-us/library/system.runtime.serialization.formatters.binary.binaryformatter(v=vs.110).aspx
+[xml-serialization]: https://msdn.microsoft.com/en-us/library/58a18dwa(v=vs.100)
+[json-serialization]: https://msdn.microsoft.com/en-us/library/bb410770(v=vs.110).aspx

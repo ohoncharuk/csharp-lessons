@@ -1,0 +1,237 @@
+---
+layout: post
+title:  "Lesson 5"
+number: 5
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-5
+excerpt_separator: <!--more-->
+---
+Let's keep on learning more about C# data types.
+<!--more-->
+
+# Agenda #
+* <a href="#this">this</a>
+* <a href="#nested-types">Nested Types</a>
+* <a href="#structs">Structs</a>
+* <a href="#enums">Enums</a>
+* <a href="#guid">Guid</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+* <a href="#homework">Homework</a>
+
+# <a name="this">this</a> #
+The <s>this</s> keyword refers to the current instance of the class. Calling this inside a class means that an object of its class being called. Let's review a coffe machine example to understand it better:
+
+Coffe class can create some coffe according to inputs from coffe machine.
+Please pay your attention how this being used.
+
+{% highlight csharp %}
+class Coffe
+{
+    private CoffeMachine _coffeMachine;
+    public Coffe(CoffeMachine coffeMachine)
+    {
+        _coffeMachine = coffeMachine;
+    }
+
+    public bool Shugar { get; set; }
+    public bool Milk { get; set; }
+
+    public Coffe Cappuccino(bool sugar)
+    {
+        if (_coffeMachine.MilkAvailable)
+        {
+            Shugar = sugar;
+
+            Milk = true;
+
+            return this;
+        }
+
+        return null;
+    }
+}
+
+{% endhighlight %}
+
+Coffe machine has its state (sugar and milk available) and supplies prepared coffe.
+
+{% highlight csharp %}
+class CoffeMachine
+{
+    public bool ShugarAvailable { get; set; }
+    public bool MilkAvailable { get; set; }
+
+    public Coffe GetCappuccino(bool sugar)
+    {
+        Coffe coffe = new Coffe(this);
+
+        return coffe.Cappuccino(ShugarAvailable);
+    }
+}
+
+{% endhighlight %}
+
+Coffe machine framework can be used like this:
+{% highlight csharp %}
+CoffeMachine cm = new CoffeMachine();
+cm.MilkAvailable = true;
+Coffe coffe = cm.GetCappuccino(false);
+
+{% endhighlight %}
+
+# <a name="nested-types">Nested Types</a> #
+Use a nested class when the class you are nesting is only useful to the enclosing class.
+
+{% highlight csharp %}
+class Settings
+{
+    public class Screen
+    {
+        public int Brightness { get; set; }
+        public string Wallpaper { get; set; }
+    }
+
+    public class Sound
+    {
+        public int Volume { get; set; }
+        public bool Mute { get; set; }
+    }
+
+    public string UserName { get; set; }
+    public Screen ScreenConfig { get; set; }
+    public Sound SoundConfig { get; set; }
+}
+{% endhighlight %}
+
+{% highlight csharp %}
+Settings settings = new Settings();
+settings.ScreenConfig = new Settings.Screen();
+settings.SoundConfig = new Settings.Sound();
+{% endhighlight %}
+
+# <a name="structs">Structs</a> #
+Structs may seem similar to classes, but there are important differences that you should be aware of. First of all, classes are reference types and structs are value types. By using structs, you can create objects that behave like the built-in types.
+Assignment to a variable of a struct type creates a copy of the value being assigned.
+A struct is not permitted to declare a parameterless instance constructor.
+A struct is not permitted to declare a destructor.
+
+Structure example:
+{% highlight csharp %}
+struct Point
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public Point(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public void PrintCurrentPosition()
+    {
+        Console.WriteLine($"[{X}, {Y}]");
+    }
+}
+
+{% endhighlight %}
+
+# <a name="enums">Enums</a> #
+
+The enum keyword is used to declare an enumeration, a distinct type that consists of a set of named constants called the enumerator list.
+
+Example:
+
+{% highlight csharp %}
+enum Gender
+{
+    Male,
+    Female,
+    Undefined
+}
+
+enum Food
+{
+    Vegetarian,
+    GlutenFree,
+    NutFree,
+    SoyFree,
+    DairyFree,
+    Organic,
+    Kosher,
+    FishFree
+}
+
+enum Alcohol
+{
+    None = 0,
+    Light = 15,
+    Medium = 25,
+    Hot = 40
+}
+
+{% endhighlight %}
+
+Actually enum is a representation of type int:
+{% highlight csharp %}
+int value = (int)Food.NutFree; // returns 3
+{% endhighlight %}
+
+Class example with enums as a members:
+{% highlight csharp %}
+class Passenger
+{
+    public Gender Gender { get; set; }
+    public Food Food { get; set; }
+    public Alcohol PrefferedAlcohol { get; set; }
+}
+{% endhighlight %}
+
+And the usage of this calss. Please pay attention how object is initialized:
+{% highlight csharp %}
+Passenger applicant = new Passenger
+{
+    Gender = Gender.Female,
+    Food = Food.Kosher,
+    PrefferedAlcohol = Alcohol.Hot
+};
+{% endhighlight %}
+
+# <a name="guid">Guid</a> #
+GUID - a globally unique identifier.
+Guid it's a struct. Theoretically it's impossible to generate two identical GUIDs in the world.
+Please refer the following example on how to generate a GUID value.
+{% highlight csharp %}
+Guid g;
+// Create and display the value of two GUIDs.
+g = Guid.NewGuid();
+Console.WriteLine(g);
+Console.WriteLine(Guid.NewGuid());
+
+{% endhighlight %}
+
+
+# <a name="references">References</a> #
+
+* [this] [this]
+* [Nested types] [nested-types]
+* [Structs] [structs]
+* [enums] [enums]
+* [GUID] [guid]
+
+# <a name="homework">Homework</a> #
+
+* Implement singleton design pattern class
+* Extend coffe machine example to support other coffe recipes
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/5pG887XtlPa1Rf" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson5-60655671" title="Lesson5" target="_blank">Lesson5</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+[this]: https://msdn.microsoft.com/en-us/library/dk1507sz.aspx
+[nested-types]: https://msdn.microsoft.com/en-us/library/ms173120.aspx
+[structs]: https://msdn.microsoft.com/uk-ua/library/aa288471(v=vs.71).aspx
+[enums]: https://msdn.microsoft.com/en-us/library/sbbt4032.aspx
+[guid]: https://msdn.microsoft.com/en-us/library/system.guid.newguid(v=vs.110).aspx

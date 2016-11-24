@@ -1,0 +1,303 @@
+---
+layout: post
+title:  "Lesson 1"
+number: 1
+date:   2016-03-02 14:32:11 +0200
+comments: false
+categories: csharp
+permalink: /lesson-1
+excerpt_separator: <!--more-->
+---
+During this lesson we'll review what Object-oriented programming is. Also we'll learn C# types and create a first program.
+<!--more-->
+
+# Agenda #
+
+* <a href="#object-oriented-programming">Object oriented programming</a>
+* <a href="#stack-and-heap">Stack and Heap</a>
+* <a href="#value-types-in-csharp">Value types in C#</a>
+* <a href="#boxing-and-unboxing">Boxing and unboxing</a>
+* <a href="#mutable-and-immutable-objects">Mutable and Immutable objects</a>
+* <a href="#nullable-type">Nullable type</a>
+* <a href="#presentation">Presentation</a>
+* <a href="#references">References</a>
+
+# <a name="object-oriented-programming">Object oriented programming</a> #
+OOP is a way of organizing the source code in a program by grouping it into objects.
+Object is an individual element that includes information (data values) and functionality.
+
+Picture below demonstrates "objects" in a real life.
+![](/images/lesson1/body.png)
+
+And here is an example how it can be coded in programming language:
+
+{% highlight csharp %}
+class Eye
+{
+    public string Color { get; set; }
+}
+
+class Ear
+{
+    public void Listen()
+    {
+        Console.WriteLine("Listening...");
+    }
+}
+
+class Finger
+{
+    public string NailColor { get; set; }
+}
+
+class Hand
+{
+    public Finger[] Fingers { get; set; } = new Finger[5];
+}
+
+class Leg
+{
+    public Finger[] Fingers { get; set; } = new Finger[5];
+}
+
+class Nose
+{
+    public void ToSniff()
+    {
+        Console.WriteLine("Sniffing...");
+    }
+    public void ToSneeze()
+    {
+        Console.WriteLine("Sneeze...");
+    }
+}
+
+class Mouth
+{
+    public bool IsMouthOpened { get; set; }
+
+    public void Open()
+    {
+        Console.WriteLine("Mouth is opened.");
+    }
+
+    public void Close()
+    {
+        Console.WriteLine("Mouth is closed.");
+    }
+}
+
+class Head
+{
+    public Eye LeftEye { get; set; }
+    public Eye RightEye { get; set; }
+    public Mouth Mouth { get; set; }
+    public Ear LeftEar { get; set; }
+    public Ear RightEar { get; set; }
+    public Nose Nose { get; set; }
+}
+
+class Body
+{
+    public string Name { get; set; }
+    public int Weight { get; set; }
+    public int High { get; set; }
+    public Head Head { get; set; }
+    public Hand[] Hands { get; set; } = new Hand[2];
+    public Leg[] Legs { get; set; } = new Leg[2];
+}
+{% endhighlight %}
+
+
+In C# even a simplest program is a class. Function Main is an entry point in application. It means, that function Main will be called first when application starts.
+{% highlight csharp %}
+using System;
+
+namespace Lesson1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World");
+        }
+    }
+}
+{% endhighlight %}
+
+# <a name="stack-and-heap">Stack and Heap</a>  #
+
+* Value Type - stores its contents in memory allocated on the stack. When you created a Value Type, a single space in memory is allocated to store the value and that variable directly holds a value.
+* Reference Types - are used by a reference which holds a reference (address) to the object but not the object itself. Because reference types represent the address of the variable rather than the data itself, assigning a reference variable to another doesn't copy the data. Instead it creates a second copy of the reference, which refers to the same location of the heap as the original value.
+
+![](/images/lesson1/stackandheap.png)
+
+# <a name="value-types-in-csharp">Value types in C#</a> #
+
+<table class="table">
+<tbody><tr>
+<th style="width:10%;">Type</th>
+<th style="width:35%;">Represents</th>
+<th style="width:45%;">Range</th>
+<th style="width:10%;">Default Value</th>
+</tr>
+<tr>
+<td>bool</td>
+<td>Boolean value</td>
+<td>True or False</td>
+<td>False</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>8-bit unsigned integer</td>
+<td>0 to 255</td>
+<td>0</td>
+</tr>
+<tr>
+<td>char</td>
+<td>16-bit Unicode character</td>
+<td>U +0000 to U +ffff</td>
+<td>'\0'</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td>128-bit precise decimal values with 28-29 significant digits</td>
+<td>(-7.9 x 10<sup>28</sup> to 7.9 x 10<sup>28</sup>)
+/ 10<sup>0 to 28</sup>
+</td>
+<td>0.0M</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64-bit double-precision floating point type</td>
+<td>(+/-)5.0 x 10<sup>-324</sup> to (+/-)1.7 x 10<sup>308</sup></td>
+<td>0.0D</td>
+</tr>
+<tr>
+<td>float</td>
+<td>32-bit single-precision floating point type</td>
+<td>-3.4 x 10<sup>38</sup> to + 3.4 x 10<sup>38</sup></td>
+<td>0.0F</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32-bit signed integer type</td>
+<td>-2,147,483,648 to 2,147,483,647</td>
+<td>0</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64-bit signed integer type</td>
+<td>-9,223,372,036,854,775,808 to
+9,223,372,036,854,775,807
+</td>
+<td>0L</td>
+</tr>
+<tr>
+<td>sbyte</td>
+<td>8-bit signed integer type</td>
+<td>-128 to 127</td>
+<td>0</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16-bit signed integer type</td>
+<td>-32,768 to 32,767</td>
+<td>0</td>
+</tr>
+<tr>
+<td>uint</td>
+<td>32-bit unsigned integer type</td>
+<td>0 to 4,294,967,295</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ulong</td>
+<td>64-bit unsigned integer type</td>
+<td>0 to 18,446,744,073,709,551,615</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ushort</td>
+<td>16-bit unsigned integer type</td>
+<td>0 to 65,535</td>
+<td>0</td>
+</tr>
+</tbody></table>
+
+<br/>
+![](/images/lesson1/s.gif)
+
+# <a name="boxing-and-unboxing">Boxing and unboxing</a> #
+
+System.Object is a parent type for all other types. I.e. all types are inherited from Object  type.
+
+Boxing is the process of converting a value type to the type object.
+The reverse process called unboxing.
+
+{% highlight csharp %}
+int i = 123;
+// The following line boxes i.
+object o = i;
+o = 123;
+// unboxing
+i = (int)o;
+{% endhighlight %}
+
+# <a name="mutable-and-immutable-objects">Mutable and Immutable objects</a> #
+
+* Mutable type – multiple values can be assigned to mutable object many times and its state can be altered
+* Immutable type –  immutable classes are read-only. Once declared their value cannot be changed
+
+String is a good example of immutable type:
+
+{% highlight csharp %}
+string city = "Vinnytsia";
+city.ToUpper();
+Console.WriteLine(city); //nothing changed
+city = city.ToUpper();
+// new value assigned
+Console.WriteLine(city);
+{% endhighlight %}
+
+StringBuilder is mutable type:
+{% highlight csharp %}
+StringBuilder builder = new StringBuilder();
+builder.Append("Vinnytsia ");
+builder.Append("is a good city!");
+//Vinnytsia is a good city!
+Console.WriteLine(builder);
+{% endhighlight %}
+
+# <a name="nullable-type">Nullable type</a> #
+
+C# provides a special data types, the nullable types, to which you can assign normal range of values as well as null values.
+{% highlight csharp %}
+int? value = null;
+Console.WriteLine(value.HasValue);//False
+//
+// Assign the nullable integer to a constant integer.
+// ... The HasValue property is now true.
+// ... You can access the Value property as well.
+//
+value = 1;
+Console.WriteLine(value.HasValue);//True
+Console.WriteLine(value.Value);//1
+Console.WriteLine(value);//1
+{% endhighlight %}
+
+# <a name="references">References</a> #
+
+* [Boxing and unboxing][boxing-and-unboxing]
+* [C# types] [csharp_data_types]
+* [Nullable types] [nullable-types]
+* [Reference type] [reference-types]
+
+# <a name="presentation">Presentation</a> #
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/1VOUi2cgnRBJxG" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson1-59877515" title="Lesson1" target="_blank">Lesson1</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/ohoncharuk">Alex Honcharuk</a></strong> </div>
+
+[boxing-and-unboxing]: https://msdn.microsoft.com/en-us/library/yz2be5wk.aspx
+[csharp_data_types]: http://www.tutorialspoint.com/csharp/csharp_data_types.htm
+[nullable-types]: https://msdn.microsoft.com/en-us/library/1t3y8s4s.aspx
+[reference-types]: https://msdn.microsoft.com/en-us/library/490f96s2.aspx

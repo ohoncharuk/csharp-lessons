@@ -1,0 +1,247 @@
+---
+layout: post
+title:  "Lesson 4"
+number: 4
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-4
+excerpt_separator: <!--more-->
+---
+In this lesson we'll learn how to create your own types.
+<!--more-->
+
+# Agenda #
+* <a href="#class-example">Class example</a>
+* <a href="#access-modifiers">Access modifiers</a>
+* <a href="#static">Static</a>
+* <a href="#static-constructors">Static Constructors</a>
+* <a href="#csharp-coding-convension">C# Coding Conventions</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+
+# <a name="class-example">Class example</a> #
+
+It's been said in <a href="/lesson-1">lesson 1</a> that class is a 'description' for objects.
+When you define a class, you define a blueprint for an object.
+
+Basically class consists of:
+
+- Class name
+- Constructors. They are used to create and initialize any object member variables when you use the 'new' expression to create an object of a class.
+- Members. It's some variable inside a class.
+- Properties. A property is a member that provides a flexible mechanism to read, write, or compute the value of a private field.
+- Methods (functions). A function allows you to encapsulate a piece of code and call it from other parts of your code.
+
+Following example demonstrates a class with all its basic features:
+
+{% highlight csharp %}
+class Calculator
+{
+    public Calculator(string userName)
+    {
+        Console.WriteLine($"Hello {userName}.");
+    }
+
+    //Pay attention, it's a static constructor
+    static Calculator()
+    {
+        Console.WriteLine("I'm a calculator. Let's have some fun.");
+    }
+
+    public double Mutliply(double x1, double x2)
+    {
+        var result = x1*x2;
+        AddHistory(x1, x2, "*", result);
+        return result;
+    }
+    public double Sum(double x1, double x2)
+    {
+        var result = x1 + x2;
+        AddHistory(x1, x2, "+", result);
+        return result;
+    }
+
+    public double Substract(double x1, double x2)
+    {
+        var result = x1 - x2;
+        AddHistory(x1, x2, "-", result);
+        return result;
+    }
+
+    public double Divide(double x1, double x2)
+    {
+        var result = x2 != 0 ? x1/x2 : 0; //Preventing infinity value.
+        AddHistory(x1, x2, "/", result);
+        return result;
+    }
+
+    private StringBuilder _history = new StringBuilder();
+    private void AddHistory(double x1, double x2, string operation, double result)
+    {
+        _history.AppendLine($"{x1} {operation} {x2} = {result}");
+    }
+
+    public string GetHistory()
+    {
+        return _history.ToString();
+    }
+
+    public void InviteToEnterValue(out double value)
+    {
+        Console.WriteLine($"Enter value:");
+        value = double.Parse(Console.ReadLine());
+    }
+}
+{% endhighlight %}
+
+And it can be used in following way:
+
+{% highlight csharp %}
+Calculator calculator = new Calculator("Alex");
+
+var stopCalculation = false;
+do
+{
+    double a;
+    double b;
+    double sumResult = 0;
+    calculator.InviteToEnterValue(out a);
+    calculator.InviteToEnterValue(out b);
+    Console.WriteLine("Write a command:");
+    var command = Console.ReadLine();
+
+    switch (command)
+    {
+        case "+":
+            sumResult = calculator.Sum(a, b);
+            break;
+        case "-":
+            sumResult = calculator.Substract(a, b);
+            break;
+        case "*":
+            sumResult = calculator.Mutliply(a, b);
+            break;
+        case "/":
+            sumResult = calculator.Divide(a, b);
+            break;
+        default:
+            stopCalculation = true;
+            Console.WriteLine("Wrong command. Calcullation stopped.");
+            break;
+    }
+
+    Console.WriteLine($"{a} {command} {b} = {sumResult}");
+
+} while (!stopCalculation);
+{% endhighlight %}
+
+# <a name="access-modifiers">Access modifiers</a> #
+
+* public: access is not restricted
+* private: access is limited to the containing type
+* protected: access is limited to the containing class or types derived from the containing class
+* internal: access is limited to the current assembly
+* protected internal: access is limited to the current assembly or types derived from the containing class
+
+# <a name="static">Static</a> #
+Static member in class belongs to the type itself, not to a specific object. Static member or function can be defined with 'static' modifier.
+
+Example of static class:
+
+{% highlight csharp %}
+class Animal
+{
+    //static Property
+    public static int AnimalCount { get; private set; }
+
+    private string Name;
+
+    public Animal()
+    {
+        Name = "No name defined.";
+        AnimalCount++;
+    }
+
+    public Animal(string name)
+    {
+        Name = name;
+        AnimalCount++;
+    }
+
+    public void PrintName()
+    {
+        Console.WriteLine(Name);
+    }
+
+    //static function
+    public static void GetInfo()
+    {
+        Console.WriteLine("My mission is to be an animal");
+    }
+}
+
+{% endhighlight %}
+And its using example:
+
+{% highlight csharp %}
+Animal.GetInfo(); //prints message
+Animal a1 = new Animal();
+Animal a2 = new Animal("Cow");
+Animal a3 = new Animal();
+a2.PrintName();//prints Cow
+a3.PrintName();// pring 'no name defined' message
+Console.WriteLine(Animal.AnimalCount); // outputs 3
+{% endhighlight %}
+
+# <a name="static-constructors">Static constructors</a> #
+A static constructor is used to initialize any static data, or to perform a particular action that needs to be performed once only. It is called automatically before the first instance is created or any static members are referenced. Static constructor defines with out any access modifier.
+
+Static class is demonstrated in the Calculator example above:
+{% highlight csharp %}
+class Calculator
+{
+    /////////////
+
+    static Calculator()
+    {
+        Console.WriteLine("I'm a calculator. Let's have some fun.");
+    }
+
+    /////////////
+  }
+{% endhighlight %}
+
+# <a name="csharp-coding-convension">C# Coding Conventions</a> #
+Such guidelines are used by Microsoft. It's kindly recommended to use it o your projects.
+
+[C# Coding Conventions] [csharp-coding-convension]
+
+# <a name="references">References</a> #
+
+Access modifiers are keywords used to specify the declared accessibility of a member or a type. This section introduces the four access modifiers:
+
+* [Constructor] [constructor]
+* [Methods] [methods]
+* [Functions] [functions]
+* [Properties] [properties]
+* [Access Modifiers] [access-modifiers]
+* [Static Classes and Static Class Members]
+* [static-classes-and-static-class-members]
+* [Static Constructors] [static-constructors]
+* [C# Coding Conventions] [csharp-coding-convension]
+
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/yNirA2K3JNDCW4" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson-4-60551851" title="Lesson 4" target="_blank">Lesson 4</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+
+[constructor]: https://msdn.microsoft.com/en-us/library/k6sa6h87.aspx
+[methods]: https://msdn.microsoft.com/en-us/library/ms173114.aspx
+[functions]: http://csharp.net-tutorials.com/basics/functions/
+[properties]: https://msdn.microsoft.com/en-us/library/x9fsa0sw.aspx
+[access-modifiers]: https://msdn.microsoft.com/en-us/library/wxh6fsc7.aspx
+[static]: https://msdn.microsoft.com/en-us/library/98f28cdx.aspx
+[static-classes-and-static-class-members]: https://msdn.microsoft.com/en-us/library/79b3xss3.aspx
+[static-constructors]: https://msdn.microsoft.com/en-us/library/k9x6w0hc.aspx
+[csharp-coding-convension]: https://msdn.microsoft.com/en-us/library/ff926074.aspx

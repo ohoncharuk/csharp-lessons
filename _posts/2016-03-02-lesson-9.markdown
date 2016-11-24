@@ -1,0 +1,180 @@
+---
+layout: post
+title:  "Lesson 9"
+number: 9
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-9
+excerpt_separator: <!--more-->
+---
+This lesson will show you how to handle date and time. Also we'll learn how to compare and clone objects well.
+<!--more-->
+
+# Agenda #
+* <a href="#date-time">DateTime, DateTimeOffset and TimeSpan</a>
+* <a href="#time-zone">TimeZone and TimeZoneInfo</a>
+* <a href="#equality-comparison">Equality Comparison</a>
+* <a href="#override-equals">Override Equals</a>
+* <a href="#icloneable">ICloneable</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+
+# <a name="date-time">DateTime, DateTimeOffset and TimeSpan</a> #
+
+DateTime and DateTimeOffset are immutable structs for representing a date, and optionally, a time. They have a resolution of 100 ns and a range covering the years 0001 through 9999
+
+DateTimeOffset was added in Framework 3.5 and is functionally similar to DateTime. Its distinguishing feature is that it also stores a UTC offset; this allows more meaningful results when comparing values across different time zones.
+
+{% highlight csharp %}
+var dateTimeNow = DateTime.Now;
+var dateTimeOffsetNow = DateTimeOffset.Now;
+
+Console.WriteLine(dateTimeNow);
+Console.WriteLine(dateTimeNow.Kind);
+Console.WriteLine(dateTimeNow.ToUniversalTime());
+
+Console.WriteLine("---");
+Console.WriteLine(dateTimeOffsetNow);
+Console.WriteLine(dateTimeOffsetNow.Offset);
+{% endhighlight %}
+
+TypeSpan just represents a time interval:
+{% highlight csharp %}
+TimeSpan timeSpan = DateTime.Today.AddDays(2) - DateTime.Today.AddDays(1);
+var h = timeSpan.TotalHours; // 24
+{% endhighlight %}
+
+DateTime.Now is always unique.
+<img src="/images/lesson9/timespan.png" width="80%">
+
+# <a name="time-zone">TimeZone and TimeZoneInfo</a> #
+The TimeZone and TimeZoneInfo classes provide information on time zone names UTC offsets, and daylight saving time rules. TimeZoneInfo is the more powerful of the two and was introduced in Framework 3.5. The biggest difference between the two types is that TimeZone lets you access the current local time zone, whereas TimeZoneInfo provides access to all the world’s time zones. Further, TimeZoneInfo exposes a richer (although at times, more awkward) rules-based model for describing daylight saving time
+
+{% highlight csharp %}
+TimeZoneInfo zone = TimeZoneInfo.Local;
+Console.WriteLine(zone.StandardName);
+Console.WriteLine(zone.DaylightName);
+{% endhighlight %}
+
+{% highlight csharp %}
+TimeZoneInfo zone = TimeZoneInfo.Local;
+Console.WriteLine(zone.StandardName);
+Console.WriteLine(zone.DaylightName);
+{% endhighlight %}
+
+TimeZoneInfo class can return a full list of time zones.
+<img src="/images/lesson9/timezones.png" width="100%">
+
+Example on how to gwt some local time in some time zone:
+{% highlight csharp %}
+var bangkokTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+Console.WriteLine("Loca time in Bangkok is: {0}", bangkokTime);
+
+{% endhighlight %}
+
+# <a name="equality-comparison">Equality Comparison</a> #
+Value equality: two values are  equivalent in some sense
+
+{% highlight csharp %}
+int x = 5, y = 5;
+Console.WriteLine(x == y);
+{% endhighlight %}
+Referential equality: two references refer to  exactly the same object
+{% highlight csharp %}
+A a1 = new A {N = 5};
+A a2 = new A { N = 5 };
+Console.WriteLine(a1 == a2); // False
+a1 = a2;
+Console.WriteLine(a1 == a2); // True
+{% endhighlight %}
+null-safe equality comparison
+{% highlight csharp %}
+object x = 3, y = 3;
+Console.WriteLine(object.Equals(x, y)); // True
+x = null;
+Console.WriteLine(object.Equals(x, y)); // False
+y = null;
+Console.WriteLine(object.Equals(x, y)); // True
+{% endhighlight %}
+The double type’s == operator enforces that one NaN can never equal anything else — even another NaN. This is most natural from a mathematical perspective, and it reflects the underlying CPU behavior
+{% highlight csharp %}
+var sb1 = new StringBuilder("foo");
+var sb2 = new StringBuilder("foo");
+Console.WriteLine(sb1 == sb2); // False (referential equality)
+Console.WriteLine(sb1.Equals(sb2)); // True (value equality)
+{% endhighlight %}
+
+# <a name="override-equals">Override Equals</a> #
+Equals method can be overriden:
+{% highlight csharp %}
+class A
+{
+    public int N { get; set; }
+    public bool Equals(A obj)
+    {
+        return obj.N == N;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return ((A)obj).N == N;
+    }
+}
+{% endhighlight %}
+{% highlight csharp %}
+A a1 = new A { N = 5 };
+A a2 = new A { N = 5 };
+Console.WriteLine(a1.Equals((object)a2));
+{% endhighlight %}
+
+# <a name="icloneable">ICloneable</a> #
+.NET Framework has ICloneable in order to implement cloning object functonality. Example:
+
+{% highlight csharp %}
+class Book: ICloneable
+{
+    public string Author { get; set; }
+    public string Title { get; set; }
+    public object Clone()
+    {
+        return new Book
+        {
+            Author = Author,
+            Title = Title
+        };
+    }
+}
+{% endhighlight %}
+
+{% highlight csharp %}
+Book b1 = new Book
+{
+    Author = "Tom",
+    Title = "Adventures"
+};
+
+Book b2 = (Book)b1.Clone();
+{% endhighlight %}
+
+
+# <a name="references">References</a> #
+
+* [Datetime vs. DatetimeOffset] [datetime-vs-datetimeoffset]
+* [TimeSpan] [timespan]
+* [TimeZoneInfo] [timezoneinfo]
+* [FindsyStemTimezoneById] [findsystemtimezonebyid]
+* [Equals] [equals]
+* [Equals Overloading] [equals-overloading]
+* [IClonable] [iclonable]
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/LlMIcKmIOHXfLF" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson9-61899362" title="Lesson9" target="_blank">Lesson9</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+[datetime-vs-datetimeoffset]: http://stackoverflow.com/questions/4331189/datetime-vs-datetimeoffset
+[timespan]: https://msdn.microsoft.com/en-us/library/system.timespan(v=vs.110).aspx
+[timezoneinfo]: https://msdn.microsoft.com/en-us/library/system.timezoneinfo(v=vs.110).aspx
+[findsystemtimezonebyid]: https://msdn.microsoft.com/en-us/library/system.timezoneinfo.findsystemtimezonebyid(v=vs.110).aspx
+[equals]: https://msdn.microsoft.com/ru-ru/library/bsc2ak47(v=vs.110).aspx
+[equals-overloading]: https://msdn.microsoft.com/uk-ua/library/ms173147(v=vs.80).aspx
+[iclonable]: https://msdn.microsoft.com/en-us/library/system.icloneable(v=vs.110).aspx

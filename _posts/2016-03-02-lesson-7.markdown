@@ -1,0 +1,156 @@
+---
+layout: post
+title:  "Lesson 7"
+number: 7
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-7
+excerpt_separator: <!--more-->
+---
+It's time to start learning inheritance.
+<!--more-->
+
+# Agenda #
+* <a href="#inheritance">Inheritance</a>
+
+* <a href="#references">References</a>
+
+# <a name="inheritance">Inheritance</a> #
+
+Base class:
+{% highlight csharp %}
+class Car
+{
+    protected int carId;
+
+    public Car(int id)
+    {
+        carId = id;
+    }
+
+    public string Color { get; set; }
+    public int Year { get; set; }
+
+    public string A()
+    {
+        return "Car";
+    }
+
+    //The virtual keyword is used to allow a member for it to be overridden in a derived class
+    public virtual string GetLogo()
+    {
+        return "Unrecognized logo";
+    }
+
+    protected void Foo()
+    {
+        Console.WriteLine("Foo1");
+    }
+
+    public virtual void PrintDetails()
+    {
+        Console.WriteLine("---");
+        Console.WriteLine($"Car ID is {carId}");
+        Console.WriteLine("---");
+    }
+{% endhighlight %}
+
+Derived class:
+{% highlight csharp %}
+class Audi : Car
+{
+    public Audi(int id) : base(id)
+    {
+        //ToDo: Try to uncomment that line and change carId member in Car class to be private.
+        //carId = 0
+    }
+
+    public string Number { get; set; }
+
+    public override string GetLogo()
+    {
+        return "4 rings";
+    }
+
+    public override void PrintDetails()
+    {
+        Console.WriteLine("---");
+        Console.WriteLine($"Car ID is {carId}");
+        Console.WriteLine("Manufactorer Audi");
+        Console.WriteLine("---");
+    }
+}
+{% endhighlight %}
+
+Some other site accepting base class object as an argument, but derived class object can be passed as well.
+{% highlight csharp %}
+class Shop
+{
+    public int GetPrice(Car car)
+    {
+        var price = 500;
+
+        if (car.Color == "Red")
+        {
+            price += 1000;
+        }
+
+        if (car.Year > 2005)
+        {
+            price += 5000;
+        }
+
+        return price;
+    }
+}
+{% endhighlight %}
+
+{% highlight csharp %}
+Shop shop = new Shop();
+
+Car car = new Car(123)
+{
+    Year = 2002
+};
+
+Audi audi = new Audi(465)
+{
+    Color = "Red",
+    Year = 2010
+};
+
+Car audiCar = new Audi(978)
+{
+    Year = 2010,
+    Number = "AA3454CE"
+};
+
+WriteLine("*** Logos ***");
+WriteLine(car.GetLogo());
+WriteLine(audi.GetLogo());
+WriteLine(audiCar.GetLogo());
+
+WriteLine("*** Prices ***");
+WriteLine(shop.GetPrice(audi));// Audi object can be passed when Car object is expected.
+WriteLine(shop.GetPrice(audiCar));
+
+WriteLine("*** Details ***");
+audi.PrintDetails();
+audiCar.PrintDetails();
+{% endhighlight %}
+
+# <a name="references">References</a> #
+
+* [Inheritance 1] [inheritance-1]
+* [Inheritance 2] [inheritance-2]
+* [Inheritance 3] [inheritance-3]
+* [Inheritance 4] [inheritance-4]
+* [Protected access modifier] [protected]
+
+[inheritance-1]: https://msdn.microsoft.com/en-us/library/ms173149(v=vs.100).aspx
+
+[inheritance-2]: http://csharp.net-tutorials.com/classes/inheritance/
+[inheritance-3]: http://www.codeproject.com/Articles/1445/Introduction-to-inheritance-polymorphism-in-C
+[inheritance-4]: http://www.codeproject.com/Articles/816448/Virtual-vs-Override-vs-New-Keyword-in-Csharp
+[protected]: https://msdn.microsoft.com/en-us/library/bcd5672a.aspx

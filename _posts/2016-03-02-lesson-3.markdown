@@ -1,0 +1,224 @@
+---
+layout: post
+title:  "Lesson 3"
+number: 3
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-3
+excerpt_separator: <!--more-->
+---
+<a href="/lesson-2">Previous lesson</a> starts with one-dimensional array. In this lesson we'll review arrays more closely.
+<!--more-->
+
+# Agenda #
+* <a href="#foreach-operator">foreach</a>
+* <a href="#find-maximum-element-of-array">Find maximum element of array</a>
+* <a href="#sum-of-array-elements">Sum of array elements</a>
+* <a href="#two-dimentional-arrays">Two-dimentional arrays</a>
+* <a href="#bubble-sorting">Bubble sorting</a>
+* <a href="#references">References</a>
+
+
+# <a name="foreach-operator">foreach</a> #
+
+Performs the specified action for each element in an array.
+
+Following example shows how to handle array with foreach loop.
+
+{% highlight csharp %}
+var words = new[] {"Hey", "dude", "where", "is", "my", "car", "?"};
+int numberOfWords = 0;
+foreach (var word in words)
+{
+    Console.Write($"{word} ");
+    numberOfWords++;
+}
+Console.WriteLine();
+Console.WriteLine($"It has {numberOfWords} words.");
+{% endhighlight %}
+
+It takes array elements one by one, prints it and increments counter inside a loop's body.
+
+# <a name="find-maximum-element-of-array">Find maximum element of array</a> #
+Such simple task can be completed with for loop as well as with for loop.
+
+Let's try it with foreach first.
+
+{% highlight csharp %}
+
+var array = new[] { 3, 5, 3, 99, 6, 5, 5, 4, 4, 43, 2, 0 };
+
+var maxElement = array[0];//Why we need it?
+foreach (var currentItem in array)
+{
+    if (currentItem > maxElement)
+    {
+        maxElement = currentItem;
+    }
+}
+
+Console.WriteLine($"Maximum element of array is {maxElement}");
+
+{% endhighlight %}
+
+And now I'll show you how 'for' can be better for this in case you need more functionality rather than just find some element.
+
+{% highlight csharp %}
+
+var array = new[] { 3, 5, 3, 99, 6, 5, 5, 4, 4, 43, 2, 0 };
+
+var maxElement = array[0];//Why we need it?
+var maxElementPosition = 0;
+for (int i = 0; i < array.Length; i++)
+{
+    var currentItem = array[i];
+    if (currentItem > maxElement)
+    {
+        maxElement = currentItem;
+        maxElementPosition = i;
+    }
+}
+
+Console.WriteLine($"Maximum element of array is {maxElement}");
+Console.WriteLine($"Maximum element position is {maxElementPosition}");
+
+{% endhighlight %}
+
+This example demonstrates that you can not only find the maximum element but its index as well.
+
+# <a name="two-dimentional-arrays">Two-dimentional arrays</a>
+
+Actually it's just a matrix. E.g.:
+
+![](/images/lesson3/two-dimensional-array.jpg)
+
+in C# 2d array I.e. matrix can be defined as:
+{% highlight csharp %}
+var matrix = new[,]
+{
+  {3, 5, 3, 2, 6},
+  {3, 5, 3, 2, 6},
+  {3, 5, 3, 2, 6},
+  {3, 5, 3, 2, 6},
+  {3, 5, 3, 2, 6},
+};
+{% endhighlight %}
+
+# <a name="sum-of-array-elements">Sum of array elements</a> #
+
+Let's review an example how to sum 2d array.
+
+{% highlight csharp %}
+var array2d = new[,]
+{
+    {1, 5},
+    {2, 4},
+    {7, 3}
+};
+
+var sum = 0;
+
+for (int i = 0; i < array2d.GetLength(0); i++)
+{
+    for (int j = 0; j < array2d.GetLength(1); j++)
+    {
+        sum += array2d[i, j];
+    }
+}
+Console.WriteLine($"Array sum is: {sum}");
+{% endhighlight %}
+
+Now, let's try to sum <a href="https://en.wikipedia.org/wiki/Main_diagonal">main diagonal</a> elements of 5*5 matrix.
+{% highlight csharp %}
+var array2d = new[,]
+{
+    {3, 5, 3, 2, 6},
+    {3, 0, 48, 2, 6},
+    {3, 5, 7, 2, 6},
+    {3, 5, 3, 2, 6},
+    {3, 5, 3, 2, 34}
+};
+
+var sum = 0;
+
+//diagonals sum
+for (int i = 0; i < array2d.GetLength(0); i++)
+{
+    sum += array2d[i, i];
+}
+Console.WriteLine($"Diagonal sum is: {sum}");
+{% endhighlight %}
+
+Well, now let's calculate both diagonals.
+
+{% highlight csharp %}
+var array2d = new[,]
+{
+    {3, 5, 3, 2, 6},
+    {3, 5, 48, 2, 6},
+    {3, 5, 7, 2, 6},
+    {3, 5, 3, 2, 6},
+    {3, 5, 3, 2, 34}
+};
+
+var sum = 0;
+
+for (int mainIndex = 0; mainIndex < array2d.GetLength(0); mainIndex++)
+{
+    var secondaryIndex = array2d.GetLength(0) - 1 - mainIndex;
+
+    sum += array2d[mainIndex, secondaryIndex];
+
+    //preventing common diagonals crossing item '7' to be summed twice
+    if (secondaryIndex != mainIndex)
+    {
+        sum += array2d[mainIndex, mainIndex];
+    }
+}
+
+Console.WriteLine($"Diagonals sum is: {sum}");
+{% endhighlight %}
+
+# <a name="bubble-sorting">Bubble sorting</a> #
+
+This task can be done with for loop.
+
+{% highlight csharp %}
+var array = new[] { 3, 5, 3, 2, 6, 5, 5, 4, 4, 34, 2, 0 };
+
+Console.WriteLine("Initial array:");
+Console.WriteLine(string.Join(",", array));
+
+for (int i = 0; i < array.Length; i++)
+{
+    for (int j = i; j < array.Length - 1; j++)
+    {
+        if (array[j] > array[j + 1])
+        {
+            int t = array[j];
+            array[j] = array[j + 1];
+            array[j + 1] = t;
+        }
+    }
+}
+
+Console.WriteLine("Sorted array:");
+Console.WriteLine(string.Join(",", array));
+
+{% endhighlight %}
+
+for and foreach benefits:
+
+- foreach - elegant looking
+
+- for - provides additional information - an index of the current element.
+
+# <a name="references">References</a> #
+* [foreach] [loop-foreach]
+* [Sorting Algorithm Animations] [sorting-algorithms-animations]
+
+
+
+[loop-foreach]: https://msdn.microsoft.com/en-us/library/ff679980(v=vs.94).aspx
+[sorting-algorithms-animations]: http://www.sorting-algorithms.com/

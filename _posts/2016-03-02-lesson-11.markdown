@@ -1,0 +1,274 @@
+---
+layout: post
+title:  "Lesson 11"
+number: 11
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-11
+excerpt_separator: <!--more-->
+---
+During this lesson we'll talk mostly about generic types and reflection. Also I'll show a LINQ magic and generic types. This lesson shows only the top of the iceberg, More LINQ features and reflection will be shown in further lessons.
+<!--more-->
+
+# Agenda #
+* <a href="#linq">LINQ (Language-Integrated Query)</a>
+* <a href="#generics">Generics</a>
+* <a href="#generic-constraints">Generic Constraints</a>
+* <a href="#system-collections-generic">System.Collections.Generic</a>
+* <a href="#attributes">Attributes</a>
+* <a href="#reflection">Reflection</a>
+* <a href="#exporter-demo">Exporter demo</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+
+# <a name="operator-overloading">LINQ (Language-Integrated Query)</a> #
+LINQ introduces standard, easily-learned patterns for querying and updating data, and the technology can be extended to support potentially any kind of data store.
+
+All LINQ query operations consist of three distinct actions:
+- Obtain the data source
+- Create the query
+- Execute the query
+
+Examples:
+
+{% highlight csharp %}
+
+var numbers = new[] {12, 3, 7, 4, 3, 1, 8, 22, 65, 33, 7, 9, 3, 3};
+
+var evenNumbers = numbers.Where(x => x%2 == 0);
+foreach (var evenNumber in evenNumbers)
+{
+    Console.WriteLine(evenNumber);
+}
+
+{% endhighlight %}
+
+{% highlight csharp %}
+
+var numbers = new[] {12, 3, 7, 4, 3, 1, 8, 22, 65, 33, 7, 9, 3, 3};
+
+var evenNumbers = numbers.Where(x => x%2 == 0)
+                .Select(x=> $"Number {x} is even.");
+foreach (var evenNumber in evenNumbers)
+{
+    Console.WriteLine(evenNumber);
+}
+
+{% endhighlight %}
+
+Please execute this code to see what will happen.
+
+# <a name="generics">Generics</a> #
+Generic classes encapsulate operations that are not specific to a particular data type.
+
+{% highlight csharp %}
+
+class Swapper<T>
+{
+    public void Swap(ref T a, ref T b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+}
+
+{% endhighlight %}
+
+T - is a type passed into the class.
+
+This class can be used in a following way:
+{% highlight csharp %}
+class Program
+{
+    class SuperValue
+    {
+        public string Value { get; set; }
+    }
+    static void Main(string[] args)
+    {
+        int x = 12;
+        int y = 20;
+
+        SuperValue value1 = new SuperValue { Value = "Hello” };
+        SuperValue value2 = new SuperValue { Value = "World" };
+
+        Swapper<int> swapperOne = new Swapper<int>();
+        var swapperTwo = new Swapper<SuperValue>();
+
+        swapperOne.Swap(ref x, ref y);
+        swapperTwo.Swap(ref value1, ref value2);
+
+        Console.WriteLine($"x = {x}, y = {y}");
+        Console.WriteLine($"v1 = {value1.Value}, v2 = {value2.Value}");
+        Console.ReadLine();
+    }
+}
+
+{% endhighlight %}
+
+Please run this code to observe a result.
+
+Generic Constraints is the thing designed to assign some requirements for a type that can be passed into the class.
+By default, a type parameter can be substituted with any type whatsoever. Constraints can be applied to a type parameter to require more specific type arguments:
+
+- where T : base-class  
+  // Base-class constraint
+- where T : interface  
+  // Interface constraint
+- where T : class  
+  // Reference-type constraint
+- where T : struct  
+  // Value-type constraint (excludes Nullable types)
+- where T : new()  
+  // Parameterless constructor constraint
+- where U : T  
+  // Naked type constraint
+
+Followign code demonstrates how it works.
+
+{% highlight csharp %}
+class Swapper<T> where T:class
+{
+    public void Swap(ref T a, ref T b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+}
+{% endhighlight %}
+
+Please notice that T is limited to be only a reference type. If we use this class with value type E.g. int, it'll throw a compilation error:
+
+{% highlight csharp %}
+Swapper<int> swapperOne = new Swapper<int>();
+{% endhighlight %}
+<img src="/images/lesson11/error.png">
+
+# <a name="system-collections-generic">System.Collections.Generic</a> #
+The System.Collections.Generic namespace contains interfaces and classes that define generic collections, which allow users to create strongly typed collections that provide better type safety and performance than non-generic strongly typed collections.
+
+Execute followign lines of code to see how collections works.
+{% highlight csharp %}
+List<string> names = new List<string>();
+names.Add("John");
+names.Add("Mike");
+names.Add("Alan");
+
+foreach (var name in names)
+{
+    Console.WriteLine(name);
+}
+{% endhighlight %}
+
+{% highlight csharp %}
+Dictionary<string,string> bouquet = new Dictionary<string, string>();
+bouquet.Add("rose", "red");
+bouquet.Add("tulip", "yellow");
+bouquet.Add("chamomile", "white");
+bouquet.Add("aster", "white");
+
+Console.WriteLine($"Rose's color is {bouquet["rose"]}.");
+
+Console.WriteLine("All flowers in bouquet.");
+Console.WriteLine($"Total number is {bouquet.Count}");
+foreach (var flower in bouquet)
+{
+    Console.WriteLine($"{flower.Key} is {flower.Value}");
+}
+
+Console.WriteLine("White flowers are:");
+foreach (var flower in bouquet.Where(x=>x.Value== "white"))
+{
+    Console.WriteLine($"{flower.Key}");
+}
+{% endhighlight %}
+
+# <a name="attributes">Attributes</a> #
+Attributes extend classes and types. This C# feature allows you to attach declarative information, like some metadata information, to any type.
+.NET framework has Attribute class. You should do next steps to have your own attribute:
+1) Create and new class with name ended with Attribute.
+2) Inherit it from standard Attribute class.
+3) Implement any functionality if necessary.
+
+Example:
+{% highlight csharp %}
+class DisplayValueAttribute : Attribute
+{
+    public string Text { get; set; }
+}
+{% endhighlight %}
+
+or
+
+{% highlight csharp %}
+public class HideAttribute : Attribute
+{
+}
+{% endhighlight %}
+
+These attributes can be used as:
+
+{% highlight csharp %}
+class Record
+{
+    [DisplayValue(Text="Name of the record")]
+    public string Name { get; set; }
+
+    public string Value { get; set; }
+
+    [DisplayValue(Text = "Created at")]
+    public DateTime Created { get; set; }
+
+    [Hide]
+    public DateTime Changed { get; set; }
+}
+{% endhighlight %}
+
+At the end of the lesson you can find a demo to see it in action.
+
+# <a name="reflection">Reflection</a> #
+Reflection objects are used for obtaining type information at runtime. The classes that give access to the metadata of a running program are in the System.Reflection namespace.
+Reflection is used to fetch attributes information for types.
+
+Reflection examples:
+{% highlight csharp %}
+System.Reflection.Assembly info = typeof(int).Assembly;
+Console.WriteLine(info);
+{% endhighlight %}
+
+{% highlight csharp %}
+int i = 42;
+Type type = i.GetType();
+Console.WriteLine(type);
+{% endhighlight %}
+
+
+# <a name="exporter-demo">Exporter demo</a> #
+Download the source code demo by following [this] [exporter-code] link.
+
+# <a name="generics">Generics</a> #
+
+# <a name="references">References</a> #
+
+* [LINQ] [LINQ]
+* [101 LINQ Samples] [LINQ-101]
+* [Generic Classes] [generic-classes]
+* [System.Collections.Generic] [system-collections-generic]
+* [Attributes] [attributes]
+* [Reflection] [reflection]
+* [Reflection-2] [reflection-2]
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/4EQ1pyI4H2jMBw" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson11-62887149" title="Lesson11" target="_blank">Lesson11</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+[LINQ]: https://msdn.microsoft.com/en-us/library/mt693024.aspx
+[LINQ-101]: https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b
+[generic-classes]: https://msdn.microsoft.com/en-us/library/sz6zd40f.aspx
+[system-collections-generic]: https://msdn.microsoft.com/en-us/library/system.collections.generic%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396
+[attributes]: https://msdn.microsoft.com/en-us/library/aa288454(v=vs.71).aspx
+[reflection]: https://msdn.microsoft.com/en-us/library/mt656691.aspx
+[reflection-2]: http://www.tutorialspoint.com/csharp/csharp_reflection.htm
+[exporter-code]: /files/ExporterDemo.zip

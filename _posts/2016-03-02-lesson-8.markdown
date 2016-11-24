@@ -1,0 +1,112 @@
+---
+layout: post
+title:  "Lesson 8"
+number: 8
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-8
+excerpt_separator: <!--more-->
+---
+Abstract classes and Interfaces are today's items of discussion.
+<!--more-->
+
+# Agenda #
+* <a href="#Sealed">Sealed</a>
+* <a href="#abstract-classes">Abstract classes</a>
+* <a href="#interfaces">Interfaces</a>
+* <a href="#references">References</a>
+* <a href="#presentation">Presentation</a>
+
+# <a name="sealed-classes">Sealed</a> #
+Sealed modifier prevents other classes from inheriting from it.
+
+Please see following example how to use it.
+{% highlight csharp %}
+sealed class A
+{
+
+}
+
+//Gives an error, due to sealed class A
+class B : A
+{
+
+}
+{% endhighlight %}
+
+# <a name="abstract-classes">Abstract classes</a> #
+In C#, the abstract modifier is used to define an abstract class.
+Abstract class cannot be instantiated, and is frequently either partially implemented, or not at all implemented.
+
+One key difference between abstract classes and interfaces is that a class may implement an unlimited number of interfaces, but may inherit from only one abstract (or any other kind of) class.
+
+An example of abstract class:
+{% highlight csharp %}
+public abstract class Country
+{
+    public string Name { get; set; }
+    public string Currency { get; set; }
+
+    public void PrintInformation()
+    {
+        Console.WriteLine(Name);
+        Console.WriteLine(Currency);
+        Console.WriteLine(this.GetFlagDescription());
+    }
+
+    //Abstract function.
+    //Pay your attention. A method w/o implementation.
+    public abstract string GetFlagDescription();
+}
+{% endhighlight %}
+
+Some inherited class from out abstract class. Sure, derived class can be instantiated.
+Pay your attention this class is sealed.
+{% highlight csharp %}
+sealed class Usa: Country
+{
+    public override string GetFlagDescription()
+    {
+        return "Thirteen horizontal stripes alternating red and white;" +
+                "in the canton, 50 white stars of alternating numbers of " +
+                "six and five per row on a blue field";
+    }
+}
+{% endhighlight %}
+
+# <a name="interfaces">Interfaces</a> #
+An interface is not a class. An interface is defined as a syntactical contract that all the classes inheriting the interface should follow.
+An interface contains only the signatures of methods, properties, events or indexers. We'll talk later about events and indexers.
+A class or struct that implements the interface must implement the members of the interface that are specified in the interface definition.
+
+Simple interface to have been defined with one property and method.
+{% highlight csharp %}
+public interface IAlcohol
+{
+    double AlcoholByVolume { get; set; }
+
+    double GetMaximumAllowedWightForHuman();
+}
+{% endhighlight %}
+
+# <a name="references">References</a> #
+
+* [Sealed] [sealed]
+* [Abstract classes 1] [abstract-classes-1]
+* [Abstract classes 2] [abstract-classes-2]
+* [Interfaces] [interfaces]
+* [Interfaces 2] [interfaces-2]
+* [Abstract Class versus Interface] [abstract-class-versus-interface]
+* [Download Source Code] [download-source-code]
+
+# <a name="presentation">Presentation</a> #
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/LdHGHhnIEGUzF9" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson8-61140036" title="Lesson8" target="_blank">Lesson8</a> </strong> from <strong><a href="//www.slideshare.net/ohoncharuk" target="_blank">Alex Honcharuk</a></strong> </div>
+
+[sealed]: https://msdn.microsoft.com/en-us/library/88c54tsw.aspx
+[abstract-classes-1]: https://msdn.microsoft.com/en-us/library/k535acbf(v=vs.71).aspx
+[abstract-classes-2]: https://msdn.microsoft.com/en-us/library/sf985hc5.aspx
+[interfaces]: https://msdn.microsoft.com/en-us/library/87d83y5b.aspx
+[interfaces-2]: http://www.tutorialspoint.com/csharp/csharp_interfaces.htm
+[abstract-class-versus-interface]: http://www.codeproject.com/Articles/11155/Abstract-Class-versus-Interface
+[download-source-code]: /files/Lesson8.zip

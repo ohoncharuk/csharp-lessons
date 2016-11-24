@@ -1,0 +1,276 @@
+---
+layout: post
+title:  "Lesson 2"
+number: 2
+date:   2016-03-02 14:32:11 +0200
+categories: csharp
+comments: false
+permalink: /lesson-2
+---
+In this lesson we'll review arrays. Also you'll learn if, if-else, while, do-while, for, foreach loops.
+
+# Agenda #
+
+* <a href="#one-dimensional-arrays">One-dimensional arrays</a>
+* <a href="#if-operator">if</a>
+* <a href="#if-else-operator">if-else</a>
+* <a href="#switch-operator">switch</a>
+* <a href="#while-operator">while</a>
+* <a href="#do-while-operator">do-while</a>
+* <a href="#for-operator">for</a>
+* <a href="#presentation">Presentation</a>
+* <a href="#references">References</a>
+* <a href="#homework">Homework</a>
+
+# <a name="one-dimensional-arrays">One-dimensional arrays</a>  #
+
+An array is a special variable, which can hold more than one value at a time.
+
+![](/images/lesson2/one-dimension-array.jpg)
+
+In other words, array it's a group of elements of the same type located in RAM one by one.
+
+Following code demonstrates how to create an array according to the picture above:
+
+{% highlight csharp %}
+int[] a = new int[6]; // array creation
+
+//array initialization
+a[0] = 12;// the first element
+a[1] = 2;// the second element
+a[2] = 1;
+//and so on
+a[3] = 232;
+a[4] = 16;
+a[5] = 99;
+{% endhighlight %}
+
+Please pay your attention that first element of array has index zero - 0.
+
+Any array element can be accessed by its index:
+{% highlight csharp %}
+//prints '99'
+Console.WriteLine(a[5]);
+{% endhighlight %}
+
+# Conditional statements #
+
+# <a name="if-operator">if</a>  #
+
+Use if to specify a block of code to be executed, if a specified condition is true:
+
+<img src="/images/lesson2/if.png" width="70%">
+
+Example:
+
+{% highlight csharp %}
+bool raining = true;
+
+Console.WriteLine("Hello!");
+
+if (raining == true)
+{
+    Console.WriteLine("Please take your umbrella");
+}
+
+Console.WriteLine("Have a nice day.");
+
+Console.WriteLine("Press ENTER to exit.");
+Console.ReadLine();
+{% endhighlight %}
+
+# <a name="if-else-operator">if-else</a>  #
+
+Use else to specify a block of code to be executed, if the same condition is false:
+
+<img src="/images/lesson2/if-else.png" width="70%">
+
+Example:
+
+{% highlight csharp %}
+
+string name;
+
+Console.WriteLine("What is your name?");
+
+name = Console.ReadLine();
+
+Console.WriteLine("Do you have some money? (y/n)");
+string answer = Console.ReadLine();
+
+if (answer == "y")
+{
+    Console.WriteLine($"{name} is rich!");
+}
+else
+{
+    Console.WriteLine($"{name} should work a bit more.");
+}
+
+Console.WriteLine("Press ENTER to exit.");
+Console.ReadLine();
+
+{% endhighlight %}
+
+# <a name="switch-operator">switch</a>  #
+
+switch statement is a good alternative to if-else operator if many cases has to be verified. switch can be used instead of a long if-else chain.
+
+switch operator diagram:
+
+<img src="/images/lesson2/switch.png" width="55%">
+
+In the source code it'll look like:
+
+{% highlight csharp %}
+
+Console.WriteLine("Enter girl's name:");
+string girlName = Console.ReadLine();
+switch (girlName)
+{
+    case "Kate":
+        Console.WriteLine("Just ignore her.");
+        break;
+    case "Samanta":
+        Console.WriteLine("Give her your phone number!");
+        break;
+    case "Melissa":
+        Console.WriteLine("She has a birthday pretty soon!");
+        break;
+    default:
+        Console.WriteLine("Sorry, I don't know {0}", girlName);
+        break;
+}
+
+{% endhighlight %}
+
+With a long if-else chain it'll look as:
+
+{% highlight csharp %}
+
+Console.WriteLine("Enter girl's name:");
+string girlName = Console.ReadLine();
+
+if (girlName == "Kate")
+{
+    Console.WriteLine("Just ignore her.");
+}
+else if (girlName == "Samanta")
+{
+    Console.WriteLine("Give her your phone number!");
+}
+else if (girlName == "Melissa")
+{
+    Console.WriteLine("She has a birthday pretty soon!");
+}
+else
+{
+    Console.WriteLine("Sorry, I don't know {0}", girlName);
+}
+
+{% endhighlight %}
+
+
+# Loops #
+
+# <a name="while-operator">while</a> #
+
+The while statement continually executes a block of statements while a particular condition is true.
+
+<img src="/images/lesson2/while.png" width="70%">
+
+It can be expressed with the following source code:
+
+{% highlight csharp %}
+
+int moneyInWallet = 100;
+int iPhonePrice = 499;
+
+while (moneyInWallet <= iPhonePrice)
+{
+    //keep on making money
+    moneyInWallet = moneyInWallet + 1;
+}
+
+{% endhighlight %}
+
+# <a name="do-while-operator">do-while</a> #
+
+do-while loop is a bit different than just while.
+while loop checks condition first before to execute its body code. do-while performs it vise versa. It executes body code first and then verifies condition whether to execute body code again or not. Please find do-while diagram below:
+
+<img src="/images/lesson2/do-while.png" width="50%">
+
+Following source demonstrates it in action:
+
+{% highlight csharp %}
+
+int moneyInWallet = 0;
+int iPhonePrice = 499;
+
+do
+{
+    //keep on making money
+    moneyInWallet++; //increment
+}
+while (moneyInWallet >= iPhonePrice);
+
+{% endhighlight %}
+
+# <a name="for-operator">for</a> #
+
+Loop 'for' has more functionality than any other loop statement. 'for' loops can execute a block of code a predefined or calculated number of times.
+
+This diagram demonstrates how it works:
+
+<img src="/images/lesson2/for.png" width="70%">
+
+An example below just simply iterates 9 times:
+
+{% highlight csharp %}
+
+for (int index = 1; index < 10; index++)
+{//Body
+   Console.WriteLine("Number {0}", index);
+}
+
+{% endhighlight %}
+
+It shows:
+
+<img src="/images/lesson2/console1.png" width="55%">
+
+
+# <a name="references">References</a> #
+
+* [arrays] [arrays]
+* [if] [if]
+* [switch] [switch]
+* [Loop while, first link] [loop-while1]
+* [Loop while, second link] [loop-while2]
+* [Loop while, third link] [loop-while3]
+* [for] [loop-for]
+* [foreach] [loop-foreach]
+
+# <a name="presentation">Presentation</a> #
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/Mx3MeAQyXwueDS" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ohoncharuk/lesson2-60021532" title="Lesson2" target="_blank">Lesson2</a> </strong> from <strong><a target="_blank" href="//www.slideshare.net/ohoncharuk">Alex Honcharuk</a></strong> </div>
+
+# <a name="homework">Homework</a> #
+
+1. Try to build and run all examples from this lesson.
+
+2. Implement a Calculator console application.
+	- It should ask you to enter two numbers.
+  - When numbers are entered, then it should as operation that has to be performed (/, *, + or -).
+  - Show calculation result.
+  - Start process from scratch. It should ask user to enter two numbers and so on...
+
+[if]: https://msdn.microsoft.com/en-us/library/5011f09h.aspx
+[switch]: https://msdn.microsoft.com/en-us/library/06tc147t.aspx
+[arrays]: http://www.functionx.com/csharp3/Lesson21.htm
+[loop-while1]: http://www.csharp-station.com/Tutorial/CSharp/Lesson04
+[loop-while2]: http://www.dotnetperls.com/while
+[loop-while3]: http://www.homeandlearn.co.uk/csharp/csharp_s3p8.html
+[loop-for]: https://msdn.microsoft.com/en-us/library/ch45axte.aspx
+[loop-foreach]: https://msdn.microsoft.com/en-us/library/ttw7t8t6.aspx
